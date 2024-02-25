@@ -57,8 +57,11 @@ const connectionHandler = (ws, msg) => {
 
 const broadcastConnection = (ws, msg) => {
     clients.forEach((client) => {
-        client.send(JSON.stringify(msg));
+        // client.send(JSON.stringify(msg));
         // if (client.id === msg.id) {
         // }
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(msg));
+        }
     });
 };
